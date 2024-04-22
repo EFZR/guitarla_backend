@@ -1,0 +1,24 @@
+# Enviorement variables for all `cargo...` commands
+[env]
+
+# Scope down tracing, to filter out external lib tracing.
+RUST_LOG = "web_server=debug,lib_core=debug,lib_auth=debug,lib_utils=debug"
+
+# -- Service Enviorment Variables
+# IMPORTANT
+#   For cargo command only.
+#   For deployed env, should be managed container
+#   (e.g., Kubernetes)
+
+## -- Secrets
+# Keys and password below are for localhost dev ONLY.
+# e.g, "root" type passwords.
+# i.e, Encryption not needed.
+
+SERVICE_DB_URL = "mysql://app_user:dev_only_pwd@localhost:3306/quotes_db"
+
+SERVICE_PWD_KEY = "zc-ZAN3eiQcP_kvWwAq0Ljfkx7TvgCjUcQCh9z_omyl9RkRXjDdMHdkBmr9D97hOCLKKr5V861ErEc6ubsCwUA"
+
+SERVICE_TOKEN_KEY = "qVr40ha3INTuupN0aCrKXxkfDd-bhgqUhWgZptyE0FxDkKdUciydWaADxnCTm6nGOZoiT8gnVAbsSpn53-WGFg"
+
+SERVICE_TOKEN_DURATION_SEC = "1800" # 30 minutes
