@@ -24,7 +24,7 @@ mod error;
 mod modql_utils;
 mod store;
 
-pub mod user;
+pub mod guitars;
 
 pub use self::error::{Error, Result};
 
