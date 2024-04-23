@@ -36,9 +36,9 @@ CREATE TABLE guitarras (
 	
 	-- properties
 	`name` VARCHAR(45) NOT NULL,
-	`img` VARCHAR(100),
 	`description` VARCHAR(250) NOT NULL,
 	`price` DECIMAL(10,2) NOT NULL,
+	`img` VARCHAR(100),
 	
 	-- timestamps
 	`cid` INT NOT NULL,

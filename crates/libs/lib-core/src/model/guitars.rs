@@ -23,11 +23,11 @@ use sqlx::FromRow;
 #[serde_as]
 #[derive(Debug, Clone, Fields, FromRow, Serialize)]
 pub struct Guitarra {
-    id: u64,
-    name: String,
-    img: String,
-    description: String,
-    price: f64,
+    pub id: u64,
+    pub name: String,
+    pub img: String,
+    pub description: String,
+    pub price: f64,
 
     // --   Timestamps
     //      (Creator and last modifier)
@@ -41,32 +41,32 @@ pub struct Guitarra {
 
 #[derive(Fields, Deserialize)]
 pub struct GuitarraForCreate {
-    name: String,
-    description: String,
-    price: f64,
-    img: Option<String>,
+    pub name: String,
+    pub description: String,
+    pub price: f64,
+    pub img: Option<String>,
 }
 
 #[derive(Fields, Default, Deserialize)]
 pub struct GuitarraForUpdate {
-    name: String,
-    description: String,
-    price: f64,
-    img: Option<String>,
+    pub name: String,
+    pub description: String,
+    pub price: f64,
+    pub img: Option<String>,
 }
 
 #[derive(Fields, Default, Deserialize)]
 pub struct GuitarraForUpdateImg {
-    img: String,
+    pub img: String,
 }
 
 #[derive(FilterNodes, Deserialize, Default, Debug)]
 pub struct GuitarraFilter {
-    id: Option<OpValsInt64>,
-    name: Option<OpValsString>,
-    img: Option<OpValsString>,
-    description: Option<OpValsString>,
-    price: Option<OpValsFloat64>,
+    pub id: Option<OpValsInt64>,
+    pub name: Option<OpValsString>,
+    pub img: Option<OpValsString>,
+    pub description: Option<OpValsString>,
+    pub price: Option<OpValsFloat64>,
 
     // --   Timestamps
     //      (Creator and last modifier)
@@ -100,12 +100,66 @@ generate_common_bmc_fns!(
 
 // region:      --- Tests
 
+// TODO: Tests
+
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::_dev_utils;
+    use crate::model::Error;
+    use anyhow::Result;
+    use lib_utils::time::{format_time, now_utc};
+    use modql::filter::OpValString;
+    use serde_json::json;
+    use serial_test::serial;
+    use std::time::Duration;
+    use tokio::time::sleep;
 
-    #[test]
-    fn test_() -> Result<()> {
+    #[serial]
+    #[tokio::test]
+    async fn test_create_ok() -> Result<()> {
+        todo!()
+    }
+
+    #[serial]
+    #[tokio::test]
+    async fn test_get_err_not_found() -> Result<()> {
+        todo!()
+    }
+
+    #[serial]
+    #[tokio::test]
+    async fn test_list_all_ok() -> Result<()> {
+        todo!()
+    }
+
+    #[serial]
+    #[tokio::test]
+    async fn test_list_by_guitar_contains_ok() -> Result<()> {
+        todo!()
+    }
+
+    #[serial]
+    #[tokio::test]
+    async fn test_list_with_list_options_ok() -> Result<()> {
+        todo!()
+    }
+
+    #[serial]
+    #[tokio::test]
+    async fn test_list_by_ctime_ok() -> Result<()> {
+        todo!()
+    }
+
+    #[serial]
+    #[tokio::test]
+    async fn test_update_ok() -> Result<()> {
+        todo!()
+    }
+
+    #[serial]
+    #[tokio::test]
+    async fn test_delete_err_not_found() -> Result<()> {
         todo!()
     }
 }
