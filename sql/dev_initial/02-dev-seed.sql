@@ -12,4 +12,4 @@ VALUES
   ('Krieger', 'guitarra_09', 'Morbi ornare augue nisl, vel elementum dui mollis vel. Curabitur non ex id eros fermentum hendrerit.', 289, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
   ('Campbell', 'guitarra_10', 'Morbi ornare augue nisl, vel elementum dui mollis vel. Curabitur non ex id eros fermentum hendrerit.', 349, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
   ('Reed', 'guitarra_11', 'Morbi ornare augue nisl, vel elementum dui mollis vel. Curabitur non ex id eros fermentum hendrerit.', 399, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
-  ('Hazel', 'guitarra_12', 'Morbi ornare augue nisl, vel elementum dui mollis vel. Curabitur non ex id eros fermentum hendrerit.', 379, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP);
+  ('Hazel', 'guitarra_12', 'Morbi ornare augue nisl, vel elementum dui mollis vel. Curabitur non ex id eros fermentum hendrerit.', 379, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP)

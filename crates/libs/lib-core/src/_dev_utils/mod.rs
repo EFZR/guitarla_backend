@@ -52,7 +52,7 @@ pub async fn seed_guitars(
                 name: guitar.to_string(),
                 description: "dummy description".to_string(),
                 price: 0.00,
-                img: None,
+                img: "img".to_string(),
             },
         )
         .await?;

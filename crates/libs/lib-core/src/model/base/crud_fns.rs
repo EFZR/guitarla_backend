@@ -1,3 +1,5 @@
+// region:      --- Modules
+
 use crate::ctx::Ctx;
 use crate::model::base::{
     prep_fields_for_create, prep_fields_for_update, CommonIden, DbBmc, LIST_LIMIT_DEFAULT,
@@ -7,10 +9,12 @@ use crate::model::ModelManager;
 use crate::model::{Error, Result};
 use modql::field::HasFields;
 use modql::filter::{FilterGroups, ListOptions};
-use sea_query::{Condition, Expr, PostgresQueryBuilder, Query};
+use sea_query::{Condition, Expr, MysqlQueryBuilder, Query};
 use sea_query_binder::SqlxBinder;
 use sqlx::mysql::MySqlRow;
 use sqlx::FromRow;
+
+// endregion:   --- Modules
 
 pub async fn create<MC, E>(ctx: &Ctx, mm: &ModelManager, data: E) -> Result<i64>
 where
@@ -23,9 +27,9 @@ where
     // -- Extract fields (name / sea-query value expressions)
     let mut fields = data.not_none_fields();
     prep_fields_for_create::<MC>(&mut fields, user_id);
+    let (columns, sea_values) = fields.for_sea_insert();
 
     // -- Build query
-    let (columns, sea_values) = fields.for_sea_insert();
     let mut query = Query::insert();
     query
         .into_table(MC::table_ref())
@@ -34,8 +38,10 @@ where
         .returning(Query::returning().columns([CommonIden::Id]));
 
     // -- Exec Query
-    let (sql, values) = query.build_sqlx(PostgresQueryBuilder);
-    let (id,) = sqlx::query_as_with(&sql, values).fetch_one(db).await?;
+    let (sql, values) = query.build_sqlx(MysqlQueryBuilder);
+    let (id,) = sqlx::query_as_with::<_, (i64,), _>(&sql, values)
+        .fetch_one(db)
+        .await?;
 
     Ok(id)
 }
@@ -56,7 +62,7 @@ where
         .and_where(Expr::col(CommonIden::Id).eq(id));
 
     // -- Exec query
-    let (sql, values) = query.build_sqlx(PostgresQueryBuilder);
+    let (sql, values) = query.build_sqlx(MysqlQueryBuilder);
     let entity = sqlx::query_as_with::<_, E, _>(&sql, values)
         .fetch_optional(db)
         .await?
@@ -97,7 +103,7 @@ where
     list_options.apply_to_sea_query(&mut query);
 
     // -- Execute the query
-    let (sql, values) = query.build_sqlx(PostgresQueryBuilder);
+    let (sql, values) = query.build_sqlx(MysqlQueryBuilder);
 
     let entities = sqlx::query_as_with::<_, E, _>(&sql, values)
         .fetch_all(db)
@@ -126,7 +132,7 @@ where
         .and_where(Expr::col(CommonIden::Id).eq(id));
 
     // -- Execute query
-    let (sql, values) = query.build_sqlx(PostgresQueryBuilder);
+    let (sql, values) = query.build_sqlx(MysqlQueryBuilder);
     let count = sqlx::query_with(&sql, values)
         .execute(db)
         .await?
@@ -156,7 +162,7 @@ where
         .and_where(Expr::col(CommonIden::Id).eq(id));
 
     // -- Execute query
-    let (sql, values) = query.build_sqlx(PostgresQueryBuilder);
+    let (sql, values) = query.build_sqlx(MysqlQueryBuilder);
     let count = sqlx::query_with(&sql, values)
         .execute(db)
         .await?

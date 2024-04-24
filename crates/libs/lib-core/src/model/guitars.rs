@@ -44,7 +44,7 @@ pub struct GuitarraForCreate {
     pub name: String,
     pub description: String,
     pub price: f64,
-    pub img: Option<String>,
+    pub img: String,
 }
 
 #[derive(Fields, Default, Deserialize)]
@@ -52,15 +52,10 @@ pub struct GuitarraForUpdate {
     pub name: String,
     pub description: String,
     pub price: f64,
-    pub img: Option<String>,
-}
-
-#[derive(Fields, Default, Deserialize)]
-pub struct GuitarraForUpdateImg {
     pub img: String,
 }
 
-#[derive(FilterNodes, Deserialize, Default, Debug)]
+#[derive(FilterNodes, Deserialize, Debug)]
 pub struct GuitarraFilter {
     pub id: Option<OpValsInt64>,
     pub name: Option<OpValsString>,
@@ -100,8 +95,6 @@ generate_common_bmc_fns!(
 
 // region:      --- Tests
 
-// TODO: Tests
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -118,7 +111,25 @@ mod tests {
     #[serial]
     #[tokio::test]
     async fn test_create_ok() -> Result<()> {
-        todo!()
+        // -- Setup & Fixtures
+        let mm = _dev_utils::init_test().await;
+        let ctx = Ctx::root_ctx();
+        let fx_guitar_name = "test_create_ok";
+
+        // -- Exec
+        let guitar_c = GuitarraForCreate {
+            name: fx_guitar_name.to_string(),
+            description: "test_create_ok description".to_string(),
+            price: 0.00,
+            img: "test_create_ok img".to_string(),
+        };
+        let id = GuitarraBmc::create(&ctx, &mm, guitar_c).await?;
+
+        // -- Check
+        let guitar = GuitarraBmc::get(&ctx, &mm, id).await?;
+        assert_eq!(guitar.name, fx_guitar_name);
+
+        Ok(())
     }
 
     #[serial]

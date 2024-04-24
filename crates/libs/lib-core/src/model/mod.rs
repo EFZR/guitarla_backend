@@ -49,7 +49,7 @@ impl ModelManager {
 
     /// Returns the sqlx db pool reference.
     /// (Only for the model layer)
-    pub fn db(&self) -> &Db {
+    pub(in crate::model) fn db(&self) -> &Db {
         &self.db
     }
 }

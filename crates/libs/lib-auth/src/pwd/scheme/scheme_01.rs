@@ -65,7 +65,7 @@ mod tests {
         };
 
         // -- TODO: Need to fix fx_key, and precompute fx_res.
-        let fx_res = "P9QrbBQ7ni9qHPAVnVkt7Ea1PvwhTOSBSmSaRiWI4ku1AxGHdPgmwN7ju0MilsjcPnXID1vWxdYhwd5TxQx77A";
+        let fx_res = "8RYYQWrH9h4LEcdXyh9OHG2oDWh4b16j7OfVMe0BF5cDYzTeaRpotGYg6NcpeUOGLz-l53Lg8BY3u-LNBtzOPg";
 
         // -- Exec
         let res = hmac_sha512_hash(&fx_key, &fx_to_hash)?;
